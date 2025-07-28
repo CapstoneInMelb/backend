@@ -1,4 +1,4 @@
-package com.example.capstone.user.entity;
+package com.example.capstone.entity;
 
 import jakarta.persistence.*;
 import lombok.*;

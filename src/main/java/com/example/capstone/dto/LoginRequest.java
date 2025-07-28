@@ -1,4 +1,4 @@
-package com.example.capstone.user.dto;
+package com.example.capstone.dto;
 
 import lombok.Getter;
 import lombok.Setter;

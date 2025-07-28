@@ -1,4 +1,4 @@
-package com.example.capstone.user.dto;
+package com.example.capstone.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,9 +9,9 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class SignupRequestDTO {
+public class UserResponseDTO {
+    private Long id;
     private String email;
     private String password;
-    private String confirmPassword;
     private String nickname;
 }
