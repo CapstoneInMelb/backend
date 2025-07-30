@@ -1,6 +1,6 @@
-package com.example.capstone.repository;
+package com.example.capstone.user.repository;
 
-import com.example.capstone.entity.User;
+import com.example.capstone.user.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

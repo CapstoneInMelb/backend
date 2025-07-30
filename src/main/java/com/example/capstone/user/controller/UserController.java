@@ -1,10 +1,10 @@
-package com.example.capstone.controller;
+package com.example.capstone.user.controller;
 
-import com.example.capstone.dto.UserSignupRequestDTO;
-import com.example.capstone.entity.User;
-import com.example.capstone.service.UserService;
-import com.example.capstone.dto.LoginRequest;
-import com.example.capstone.dto.UserResponseDTO;
+import com.example.capstone.user.dto.UserSignupRequestDTO;
+import com.example.capstone.user.entity.User;
+import com.example.capstone.user.service.UserService;
+import com.example.capstone.user.dto.LoginRequest;
+import com.example.capstone.user.dto.UserResponseDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

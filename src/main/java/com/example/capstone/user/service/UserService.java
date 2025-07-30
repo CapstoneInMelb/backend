@@ -1,12 +1,12 @@
-package com.example.capstone.service;
+package com.example.capstone.user.service;
 
-import com.example.capstone.dto.UserSignupRequestDTO;
-import com.example.capstone.entity.User;
-import com.example.capstone.repository.UserRepository;
+import com.example.capstone.user.dto.UserSignupRequestDTO;
+import com.example.capstone.user.entity.User;
+import com.example.capstone.user.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import com.example.capstone.dto.UserResponseDTO;
+import com.example.capstone.user.dto.UserResponseDTO;
 
 import java.util.Optional;
 
