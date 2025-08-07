@@ -4,11 +4,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
-
 @Getter
 @Setter
 public class RescueDogDto {
-
     private String desertionNo;
     private String kindCd;
     private String sexCd;
@@ -22,6 +20,8 @@ public class RescueDogDto {
     private String noticeSdt;
     private String noticeEdt;
 
-    @JsonProperty("popfile1") // 필드명은 filename인데 JSON 응답 키는 popfile1 → 매핑 필요
+    @JsonProperty("popfile1")
     private String filename;
+
+    private String size;
 }
