@@ -1,15 +1,17 @@
 package com.example.capstone.user.controller;
 
-import com.example.capstone.user.dto.LoginRequest;
-import com.example.capstone.user.dto.SignupRequestDTO;
-import com.example.capstone.user.dto.UserResponseDTO;
+import com.example.capstone.user.dto.UserSignupRequestDTO;
 import com.example.capstone.user.entity.User;
 import com.example.capstone.user.service.UserService;
+import com.example.capstone.user.dto.LoginRequest;
+import com.example.capstone.user.dto.UserResponseDTO;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/users")
+@Tag(name = "user", description = "사용자 관련 API")
 @RequiredArgsConstructor
 public class UserController {
 
@@ -17,7 +19,7 @@ public class UserController {
 
     // 회원가입
     @PostMapping("/register")
-    public String register(@RequestBody SignupRequestDTO signupRequest) {
+    public String register(@RequestBody UserSignupRequestDTO signupRequest) {
         userService.register(signupRequest);
         return "회원가입 성공!";
     }

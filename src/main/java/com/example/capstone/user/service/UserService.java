@@ -1,12 +1,12 @@
 package com.example.capstone.user.service;
 
+import com.example.capstone.user.dto.UserSignupRequestDTO;
+import com.example.capstone.user.entity.User;
+import com.example.capstone.user.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import com.example.capstone.user.dto.SignupRequestDTO;
 import com.example.capstone.user.dto.UserResponseDTO;
-import com.example.capstone.user.entity.User;
-import com.example.capstone.user.repository.UserRepository;
 
 import java.util.Optional;
 
@@ -18,7 +18,7 @@ public class UserService {
     private final UserRepository userRepository;
 
     // 회원가입
-    public UserResponseDTO register(SignupRequestDTO request) {
+    public UserResponseDTO register(UserSignupRequestDTO request) {
         if (!request.getPassword().equals(request.getConfirmPassword())) {
             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }
