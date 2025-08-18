@@ -1,12 +1,12 @@
 package com.example.capstone.user.service;
 
-import com.example.capstone.user.dto.UserSignupRequestDTO;
+import com.example.capstone.user.dto.UserSignupRequestDto;
 import com.example.capstone.user.entity.User;
 import com.example.capstone.user.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import com.example.capstone.user.dto.UserResponseDTO;
+import com.example.capstone.user.dto.UserResponseDto;
 
 import java.util.Optional;
 
@@ -18,7 +18,7 @@ public class UserService {
     private final UserRepository userRepository;
 
     // 회원가입
-    public UserResponseDTO register(UserSignupRequestDTO request) {
+    public UserResponseDto register(UserSignupRequestDto request) {
         if (!request.getPassword().equals(request.getConfirmPassword())) {
             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }
@@ -38,7 +38,7 @@ public class UserService {
 
         User savedUser = userRepository.save(newUser);
 
-        return new UserResponseDTO(
+        return new UserResponseDto(
                 savedUser.getId(),
                 savedUser.getEmail(),
                 savedUser.getPassword(),
@@ -59,11 +59,11 @@ public class UserService {
     }
 
     // 사용자 정보 조회
-    public UserResponseDTO getUserProfile(Long id) {
+    public UserResponseDto getUserProfile(Long id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
 
-        return new UserResponseDTO(
+        return new UserResponseDto(
                 user.getId(),
                 user.getEmail(),
                 user.getPassword(),

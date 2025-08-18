@@ -1,10 +1,10 @@
 package com.example.capstone.user.controller;
 
-import com.example.capstone.user.dto.UserSignupRequestDTO;
+import com.example.capstone.user.dto.UserSignupRequestDto;
 import com.example.capstone.user.entity.User;
 import com.example.capstone.user.service.UserService;
-import com.example.capstone.user.dto.LoginRequest;
-import com.example.capstone.user.dto.UserResponseDTO;
+import com.example.capstone.user.dto.LoginRequestDto;
+import com.example.capstone.user.dto.UserResponseDto;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +19,7 @@ public class UserController {
 
     // 회원가입
     @PostMapping("/register")
-    public String register(@RequestBody UserSignupRequestDTO signupRequest) {
+    public String register(@RequestBody UserSignupRequestDto signupRequest) {
         userService.register(signupRequest);
         return "회원가입 성공!";
     }
@@ -33,9 +33,9 @@ public class UserController {
 
     // 로그인
     @PostMapping("/login")
-    public UserResponseDTO login(@RequestBody LoginRequest loginRequest) {
+    public UserResponseDto login(@RequestBody LoginRequestDto loginRequest) {
         User user = userService.login(loginRequest.getEmail(), loginRequest.getPassword());
-        return new UserResponseDTO(
+        return new UserResponseDto(
                 user.getId(),
                 user.getEmail(),
                 user.getPassword(),
@@ -45,7 +45,7 @@ public class UserController {
 
     // 사용자 조회
     @GetMapping("/{id}")
-    public UserResponseDTO getUserProfile(@PathVariable Long id) {
+    public UserResponseDto getUserProfile(@PathVariable Long id) {
         return userService.getUserProfile(id);
     }
 }
