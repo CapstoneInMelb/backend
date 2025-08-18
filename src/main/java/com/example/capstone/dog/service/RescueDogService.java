@@ -67,7 +67,7 @@ public class RescueDogService {
         dog.setProcessState(item.path("processState").asText());
         dog.setCareNm(item.path("careNm").asText());
         dog.setCareTel(item.path("careTel").asText());
-        dog.setFilename(item.path("popfile").asText());
+        dog.setFilename(item.path("popfile1").asText());
         dog.setNoticeSdt(item.path("noticeSdt").asText());
         dog.setNoticeEdt(item.path("noticeEdt").asText());
         dog.setSize(getDogSize(weightStr));

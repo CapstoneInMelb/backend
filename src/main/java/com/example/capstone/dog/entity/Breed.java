@@ -14,6 +14,5 @@ public class Breed {
 
     @Id
     private String kindCd; // 품종 코드 (기본키)
-
     private String kindName; // 품종 이름
 }

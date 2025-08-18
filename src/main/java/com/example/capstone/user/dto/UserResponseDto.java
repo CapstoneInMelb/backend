@@ -9,9 +9,9 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserSignupRequestDTO {
+public class UserResponseDto {
+    private Long id;
     private String email;
     private String password;
-    private String confirmPassword;
     private String nickname;
 }
