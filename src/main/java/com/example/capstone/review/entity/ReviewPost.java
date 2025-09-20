@@ -21,7 +21,6 @@ public class ReviewPost extends BaseTimeEntity {
     @Column(length = 120, nullable = false)
     private String title;
 
-    @Lob
     @Column(nullable = false)
     private String content;
 

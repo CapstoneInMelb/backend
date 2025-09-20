@@ -35,6 +35,14 @@ public class ReviewController {
         Sort.Direction dir = (s.length > 1 && "asc".equalsIgnoreCase(s[1])) ? Sort.Direction.ASC : Sort.Direction.DESC;
         Pageable pageable = PageRequest.of(page, size, Sort.by(dir, s[0]));
         var result = postService.list(keyword, pageable);
+
+        // 메시지 분기
+        if (result.isEmpty()) {
+            String msg = (keyword != null && !keyword.isBlank())
+                    ? "검색 결과가 없습니다."
+                    : "아직 작성된 후기가 없습니다.";
+            return ResponseEntity.ok(PageResponse.from(result, msg));
+        }
         return ResponseEntity.ok(PageResponse.from(result));
     }
 
