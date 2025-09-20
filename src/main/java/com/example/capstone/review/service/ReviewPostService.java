@@ -25,9 +25,36 @@ public class ReviewPostService {
                 .title(req.getTitle())
                 .content(req.getContent())
                 .likeCount(0L)
+                .password(req.getPassword()) // 👉 평문 그대로 저장
                 .build();
         ReviewPost saved = postRepository.save(post);
         return toDto(saved, 0L);
+    }
+
+    @Transactional
+    public ReviewPostDto update(Long id, ReviewPostUpdateRequest req) {
+        ReviewPost post = postRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("게시글이 존재하지 않습니다: " + id));
+
+        if (!post.getPassword().equals(req.getPassword())) {
+            throw new SecurityException("비밀번호가 일치하지 않습니다.");
+        }
+
+        post.update(req.getTitle(), req.getContent());
+        long commentCnt = commentRepository.countByPost(post);
+        return toDto(post, commentCnt);
+    }
+
+    @Transactional
+    public void delete(Long id, String rawPassword) {
+        ReviewPost post = postRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("게시글이 존재하지 않습니다: " + id));
+
+        if (!post.getPassword().equals(rawPassword)) {
+            throw new SecurityException("비밀번호가 일치하지 않습니다.");
+        }
+
+        postRepository.delete(post);
     }
 
     @Transactional(readOnly = true)
@@ -47,20 +74,6 @@ public class ReviewPostService {
                 .orElseThrow(() -> new IllegalArgumentException("게시글이 존재하지 않습니다: " + id));
         long commentCnt = commentRepository.countByPost(post);
         return toDto(post, commentCnt);
-    }
-
-    @Transactional
-    public ReviewPostDto update(Long id, ReviewPostUpdateRequest req) {
-        ReviewPost post = postRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("게시글이 존재하지 않습니다: " + id));
-        post.update(req.getTitle(), req.getContent());
-        long commentCnt = commentRepository.countByPost(post);
-        return toDto(post, commentCnt);
-    }
-
-    @Transactional
-    public void delete(Long id) {
-        postRepository.deleteById(id);
     }
 
     @Transactional

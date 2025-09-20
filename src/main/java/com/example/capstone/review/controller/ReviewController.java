@@ -23,13 +23,6 @@ public class ReviewController {
     private final ReviewPostService postService;
     private final ReviewCommentService commentService;
 
-    // ========== 게시글 ==========
-    @Operation(summary = "후기 작성")
-    @PostMapping
-    public ResponseEntity<ReviewPostDto> create(@Valid @RequestBody ReviewPostCreateRequest req) {
-        return ResponseEntity.ok(postService.create(req));
-    }
-
     @Operation(summary = "후기 목록 조회", description = "키워드(제목/본문) 검색, 페이지네이션, 정렬 지원. sort 예) createdAt,desc / likeCount,desc")
     @GetMapping
     public ResponseEntity<PageResponse<ReviewPostDto>> list(
@@ -42,6 +35,14 @@ public class ReviewController {
         Sort.Direction dir = (s.length > 1 && "asc".equalsIgnoreCase(s[1])) ? Sort.Direction.ASC : Sort.Direction.DESC;
         Pageable pageable = PageRequest.of(page, size, Sort.by(dir, s[0]));
         var result = postService.list(keyword, pageable);
+
+        // 메시지 분기
+        if (result.isEmpty()) {
+            String msg = (keyword != null && !keyword.isBlank())
+                    ? "검색 결과가 없습니다."
+                    : "아직 작성된 후기가 없습니다.";
+            return ResponseEntity.ok(PageResponse.from(result, msg));
+        }
         return ResponseEntity.ok(PageResponse.from(result));
     }
 
@@ -51,17 +52,21 @@ public class ReviewController {
         return ResponseEntity.ok(postService.get(id));
     }
 
-    @Operation(summary = "후기 수정")
+    @PostMapping
+    public ResponseEntity<ReviewPostDto> create(@RequestBody ReviewPostCreateRequest req) {
+        return ResponseEntity.ok(postService.create(req));
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<ReviewPostDto> update(@PathVariable Long id,
-                                                @Valid @RequestBody ReviewPostUpdateRequest req) {
+                                                @RequestBody ReviewPostUpdateRequest req) {
         return ResponseEntity.ok(postService.update(id, req));
     }
 
-    @Operation(summary = "후기 삭제")
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
-        postService.delete(id);
+    public ResponseEntity<Void> delete(@PathVariable Long id,
+                                       @RequestBody PasswordRequest req) {
+        postService.delete(id, req.getPassword());
         return ResponseEntity.noContent().build();
     }
 

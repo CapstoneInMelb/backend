@@ -15,6 +15,8 @@ public class PageResponse<T> {
     private long totalElements;
     private int totalPages;
 
+    private String message;
+
     public static <T> PageResponse<T> from(Page<T> page) {
         PageResponse<T> res = new PageResponse<>();
         res.setContent(page.getContent());
@@ -22,6 +24,12 @@ public class PageResponse<T> {
         res.setSize(page.getSize());
         res.setTotalElements(page.getTotalElements());
         res.setTotalPages(page.getTotalPages());
+        return res;
+    }
+
+    public static <T> PageResponse<T> from(Page<T> page, String message) {
+        PageResponse<T> res = from(page);
+        res.setMessage(message);
         return res;
     }
 }
