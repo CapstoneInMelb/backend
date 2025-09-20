@@ -15,4 +15,6 @@ public class ReviewPostCreateRequest {
     @Schema(description = "본문", example = "처음 온 날부터 산책 연습했어요...")
     @NotBlank
     private String content;
+
+    @NotBlank private String password;
 }

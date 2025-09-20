@@ -28,6 +28,9 @@ public class ReviewPost extends BaseTimeEntity {
     @Column(nullable = false)
     private long likeCount;
 
+    @Column(name = "password", nullable = false, length = 50)
+    private String password;
+
     public void update(String title, String content) {
         this.title = title;
         this.content = content;

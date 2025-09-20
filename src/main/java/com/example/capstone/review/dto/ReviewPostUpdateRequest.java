@@ -15,4 +15,6 @@ public class ReviewPostUpdateRequest {
     @Schema(description = "본문", example = "한 달 동안 같이 지내보니...")
     @NotBlank
     private String content;
+
+    @NotBlank private String password;
 }
